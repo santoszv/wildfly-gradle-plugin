@@ -55,6 +55,12 @@ pluginBundle {
     description = "WildFly Deployment Gradle Plugin"
     tags = listOf("wildfly", "wildfly-cli", "jboss-cli")
 
+    mavenCoordinates {
+        groupId = project.group.toString()
+        artifactId = project.name
+        version = project.version.toString()
+    }
+
     (plugins) {
         "wildfly" {
             displayName = "WildFly Deployment Gradle Plugin"
