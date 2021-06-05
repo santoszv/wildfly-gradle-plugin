@@ -1,5 +1,5 @@
 group = "mx.com.inftel.wildfly"
-version = "1.0.0"
+version = "1.0.1"
 
 repositories {
     mavenCentral()
@@ -8,12 +8,12 @@ repositories {
 plugins {
     id("com.gradle.plugin-publish") version "0.14.0"
     `java-gradle-plugin`
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.31"
 }
 
 dependencies {
     // WildFly CLI
-    implementation("org.wildfly.core:wildfly-cli:13.0.3.Final:client") {
+    compileOnly("org.wildfly.core:wildfly-cli:13.0.3.Final:client") {
         exclude(group = "*")
     }
 
@@ -47,6 +47,12 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach 
     kotlinOptions {
         jvmTarget = "1.8"
     }
+}
+
+tasks.jar.configure {
+    val wildlfyCliJar = configurations.compileClasspath.get().files.first { it.name.startsWith("wildfly-cli-") }
+    from(zipTree(wildlfyCliJar))
+    duplicatesStrategy = DuplicatesStrategy.FAIL
 }
 
 pluginBundle {
