@@ -4,9 +4,13 @@ Allows deploying and un-deploying to WildFly.
 
 ## Usage
 
-This plugin allows these configurations:
+1. Add to `build.gradle.kts`:
 
 ```
+plugins {
+    id("mx.com.inftel.wildfly") version "1.0.1"
+}
+
 wildfly {
 
     // Optional. Default value: "remote+http://localhost:9990".
@@ -26,19 +30,27 @@ wildfly {
 }
 ```
 
-This plugin register these tasks under "wildfly" group:
+2. Deploy artifact:
 
-1. wildflyDeploy
-2. wildflyUndeploy
+```
+./gradlew wildflyDeploy
+```
 
-### Exploded WAR
+2. Un-deploy artifact:
+
+```
+./gradlew wildflyUndeploy
+```
+
+
+## Exploded WAR
 
 1. Add required plugins
 
 ```
 plugins {
     war
-    id("mx.com.inftel.wildfly") version "1.0.0"
+    id("mx.com.inftel.wildfly") version "1.0.1"
 }
 ```
 
