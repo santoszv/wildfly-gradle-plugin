@@ -7,20 +7,20 @@ import org.jboss.`as`.cli.CommandContextFactory
 import org.jboss.`as`.cli.impl.CommandContextConfiguration
 import org.jboss.dmr.ModelNode
 
-const val extensionName = "wildfly"
+internal const val extensionName = "wildfly"
 
-const val groupName = "wildfly"
+internal const val groupName = "wildfly"
 
-const val messageDeploymentIsNotSet = "WildFly deployment is not set"
-const val messageDeploymentIsNotValid = "WildFly deployment is not valid"
+internal const val messageDeploymentIsNotSet = "WildFly Deployment Is Not Set"
+internal const val messageDeploymentIsNotValid = "WildFly Deployment Is Not Valid"
 
-const val parameterControllerDefault = "remote+http://localhost:9990"
-const val parameterPersistentDefault = true
+internal const val parameterControllerDefault = "remote+http://localhost:9990"
+internal const val parameterPersistentDefault = true
 
-const val taskDeployName = "wildflyDeploy"
-const val taskUndeployName = "wildflyUndeploy"
+internal const val taskDeployName = "wildflyDeploy"
+internal const val taskUndeployName = "wildflyUndeploy"
 
-inline fun commandContext(controller: String, username: String?, password: String?, block: CommandContext.() -> Unit) {
+internal inline fun commandContext(controller: String, username: String?, password: String?, block: CommandContext.() -> Unit) {
     val configBuilder = CommandContextConfiguration.Builder()
     configBuilder.setInitConsole(false)
     configBuilder.setController(controller)
@@ -40,7 +40,7 @@ inline fun commandContext(controller: String, username: String?, password: Strin
     }
 }
 
-fun CommandContext.isDeployed(deployment: String): Boolean {
+internal fun CommandContext.isDeployed(deployment: String): Boolean {
     val request = ModelNode().apply {
         get("operation").set("read-children-resources")
         get("child-type").set("deployment")
@@ -52,7 +52,7 @@ fun CommandContext.isDeployed(deployment: String): Boolean {
     return result.keys().contains(deployment)
 }
 
-fun CommandContext.undeploy(deployment: String) {
+internal fun CommandContext.undeploy(deployment: String) {
     val request = ModelNode().apply {
         get("operation").set("composite")
         get("address").setEmptyList()
@@ -79,7 +79,7 @@ fun CommandContext.undeploy(deployment: String) {
     response.checkOutcome()
 }
 
-fun CommandContext.deploy(deployment: String, path: String, archive: Boolean, persistent: Boolean) {
+internal fun CommandContext.deploy(deployment: String, path: String, archive: Boolean, persistent: Boolean) {
     val request = ModelNode().apply {
         get("operation").set("composite")
         get("address").setEmptyList()
@@ -111,7 +111,7 @@ fun CommandContext.deploy(deployment: String, path: String, archive: Boolean, pe
     response.checkOutcome()
 }
 
-fun ModelNode.checkOutcome() {
+internal fun ModelNode.checkOutcome() {
     when (get("outcome").asString()) {
         "success" -> Unit
         "failed" -> throw WildFlyException(get("failure-description").toString())

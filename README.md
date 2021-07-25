@@ -36,21 +36,21 @@ wildfly {
 ./gradlew wildflyDeploy
 ```
 
-2. Un-deploy artifact:
+3. Un-deploy artifact:
 
 ```
 ./gradlew wildflyUndeploy
 ```
 
 
-## Exploded WAR
+### Exploded WAR
 
 1. Add required plugins
 
 ```
 plugins {
     war
-    id("mx.com.inftel.wildfly") version "1.0.1"
+    id("mx.com.inftel.wildfly") version "1.0.2"
 }
 ```
 
@@ -58,7 +58,7 @@ plugins {
 
 ```
 wildfly {
-    deployment = "${project.buildDir}/libs/exploded/${project.name}.war"
+    deployment = "build/libs/exploded/${project.name}.war"
     persistent = false
 }
 ```
@@ -68,10 +68,7 @@ wildfly {
 ```
 val explodedWar = tasks.register<Copy>("explodedWar") {
     group = "build"
-}
-
-explodedWar.configure {
-    into("${project.buildDir}/libs/exploded/${project.name}.war")
+    into("build/libs/exploded/${project.name}.war")
     with(tasks.war.get())
 }
 ```
