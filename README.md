@@ -8,7 +8,7 @@ Allows deploying and un-deploying to WildFly.
 
 ```
 plugins {
-    id("mx.com.inftel.wildfly") version "1.0.1"
+    id("mx.com.inftel.wildfly") version "1.0.2"
 }
 
 wildfly {
