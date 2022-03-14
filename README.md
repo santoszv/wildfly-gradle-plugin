@@ -17,16 +17,16 @@ wildfly {
     controller = "remote+http://myserver.mydomain.com:9990"
 
     // Optional. Default value: null (unset).
-    var username = "user"
+    username = "user"
 
     // Optional. Default value: null (unset).
-    var password = "password"
+    password = "password"
 
     // Required. Processed with "Project.file()" method.
-    var deployment = "build/libs/webarchive.war"
+    deployment = "build/libs/webarchive.war"
 
     // Optional. Default value: true.
-    var persistent = false
+    persistent = false
 }
 ```
 
